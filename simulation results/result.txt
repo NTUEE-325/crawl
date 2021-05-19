@@ -1,0 +1,5 @@
+Exp2
+resonant frequency:17kHz
+
+Exp3
+citically damp at 1.5k ohm

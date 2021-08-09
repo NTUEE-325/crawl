@@ -6,13 +6,14 @@ from os import system
 
 
 class My_train:
-    def __init__(self, type, num, st, et, td, path):
+    def __init__(self, type, num, d, st, et, td, path):
         self.type = type
         self.num = num
         self.st = st
         self.et = et
         self.td = td
         self.path = path
+        self.day = d
         self.start_min = int(st.split(':')[0])*60+int(st.split(':')[1])
         self.end_min = int(et.split(':')[0])*60+int(et.split(':')[1])
         self.td_min = self.end_min-self.start_min
@@ -63,7 +64,8 @@ for i in range(delta.days+1):
         if len(td) == 8:
             td = td[:5]+" "+td[5:]
         path = r[4].text
-        datas.append(My_train(type, num, st, et, td, path))
+        d = day
+        datas.append(My_train(type, num, d, st, et, td, path))
 
 
 option = {'order': "", 'type': "", 'path': ""}
@@ -105,7 +107,7 @@ def print_data():
         print("hi")
         data3.sort(key=lambda x: x.td_min)
     for data in data3:
-        print(data.type, data.num.rjust(3),
+        print(data.type, data.num.rjust(3), data.day,
               data.st, data.et, data.td, data.path)
 
 
@@ -113,7 +115,7 @@ while True:
     c = input(
         "功能: 輸入'order'指定順序, 輸入'type'指定車種, 輸入'path'指定路線, 輸入'c'清空設定 ,輸入'p'print結果, 輸入'e'結束\n")
     if c == 'order':
-        option['order'] = input("1:時間, 2:速度\n")
+        option['order'] = input("1:時間早晚, 2:速度\n")
     elif c == 'type':
         option['type'] = input("1:莒光, 2:自強, 3:普悠瑪\n")
     elif c == 'path':

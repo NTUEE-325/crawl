@@ -45,12 +45,13 @@ for i in range(delta.days+1):
     trains = soup.find_all("tr", class_="trip-column")
     for train in trains:
         r = train.find_all("td")
+
         num = r[0].find("a").text
-        t1 = r[1].text
-        t2 = r[2].text
+        st = r[1].text
+        et = r[2].text
         td = r[3].text
-        path = r[4].txt
-        datas.append(My_train(num, t1, t2, td, path))
+        path = r[4].text
+        datas.append(My_train(num, st, et, td, path))
 
 for data in datas:
-    print(data.num)
+    print(data.num, data.st, data.et, data.td, data.path)

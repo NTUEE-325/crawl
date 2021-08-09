@@ -1,10 +1,12 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from datetime import date, timedelta
 
 
 class My_train:
-    def __init__(self, num, st, et, td, path):
+    def __init__(self, type, num, st, et, td, path):
+        self.type = type
         self.num = num
         self.st = st
         self.et = et
@@ -45,13 +47,18 @@ for i in range(delta.days+1):
     trains = soup.find_all("tr", class_="trip-column")
     for train in trains:
         r = train.find_all("td")
-
-        num = r[0].find("a").text
+        type = re.search('\D+', r[0].find("a").text).group(0)
+        if len(type) == 2:
+            type = "  "+type
+        num = re.search(r'\d+', r[0].find("a").text).group(0)
         st = r[1].text
         et = r[2].text
         td = r[3].text
+        if len(td) == 8:
+            td = td[:5]+" "+td[5:]
         path = r[4].text
-        datas.append(My_train(num, st, et, td, path))
+        datas.append(My_train(type, num, st, et, td, path))
 
 for data in datas:
-    print(data.num, data.st, data.et, data.td, data.path)
+    print(data.type, data.num.rjust(3), data.st, data.et,
+          data.td, data.path)

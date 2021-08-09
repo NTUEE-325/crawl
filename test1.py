@@ -24,7 +24,7 @@ t1 = y[1].text
 t2 = y[2].text
 print(t1)
 print(t2)
-
+print()
 """
 x = soup.find("td", class_="coloum1").text
 y = soup.find("td", class_="coloum3").text
